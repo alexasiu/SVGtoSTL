@@ -174,14 +174,7 @@ Solid style
 
 */
 @font-face {
-  font-family: formoid;
-  src:url('formoid.eot');
-  src:url('formoid.eot?#iefix') format('embedded-opentype'),
-  url('formoid.ttf') format('truetype'),
-  url('formoid.woff') format('woff'),
-  url('formoid.svg#formoid') format('svg');
-  font-weight: normal;
-  font-style: normal;
+  font-family: raleway, sans-serif;
 }
 @font-face {
   font-family: 'icons';
@@ -833,43 +826,43 @@ Not advised to edit stuff below this line
 .formoid-solid-light-green input[type=button]:active,
 .formoid-solid-light-green input[type=button]:hover,
 .formoid-solid-light-green input[type=button][disabled] {
-  border-color: #2ECC71;
+  border-color: #727575;
 }
 .formoid-solid-light-green div.title{
-  background-color: #2ECC71;
-  border-top: 1px solid #6CDB9B;
-  border-bottom: 5px solid #18B159;
+  background-color: #108A8A;
+  border-top: 1px solid #727575;
+  border-bottom: 5px solid #727575;
 }
 
 .formoid-solid-light-green input[type=submit]{
-  background-color: #2ECC71;
+  background-color: #108A8A;
 }
 
 .formoid-solid-light-green input[type=submit]:hover{
-  background-color: #6CDB9B;
+  background-color: #727575;
 }
 .formoid-solid-light-green input[type=submit]:active{
-  background-color: #18B159;
+  background-color: #727575;
 }
 
 /* File input */
 .formoid-solid-light-green .element-file .button {
-  background-color: #2ECC71;
+  background-color: #108A8A;
 }
 .formoid-solid-light-green .element-file .file_text{
   border-color: #bdc3c7;
 }
 .formoid-solid-light-green .element-file label:hover .file_text{
-  border-color: #6CDB9B;
+  border-color: #727575;
 }
 .formoid-solid-light-green .element-file .button:hover {
-  background-color: #6CDB9B;
+  background-color: #727575;
 }
 .formoid-solid-light-green .element-file .button:active {
-  background-color: #18B159;
+  background-color: #727575;
 }
 .formoid-solid-light-green .element-file label:active .file_text{
-  border-color: #2ECC71;
+  border-color: #108A8A;
 }
 
 /* element-submit + element-text */
@@ -887,11 +880,11 @@ Not advised to edit stuff below this line
   border-color: #bdc3c7;
 }
 .formoid-solid-light-green input[type=checkbox]:hover+span:before{
-  border-color: #6CDB9B;
+  border-color: #108A8A;
 }
 .formoid-solid-light-green input[type=checkbox]:checked+span:before{
-  color: #2ECC71;
-  border-color: #2ECC71;
+  color: #108A8A;
+  border-color: #108A8A;
 }
 
 /* radio */
@@ -899,10 +892,10 @@ Not advised to edit stuff below this line
   color: #bdc3c7;
 }
 .formoid-solid-light-green input[type=radio]:hover+span:before{
-  color: #6CDB9B;
+  color: #108A8A;
 }
 .formoid-solid-light-green input[type=radio]:checked+span:before{
-  color: #2ECC71;
+  color: #108A8A;
 }
 
 /* rating */
@@ -912,10 +905,10 @@ Not advised to edit stuff below this line
 }
 .formoid-solid-light-green .rating:hover .rating-star:hover:after,
 .formoid-solid-light-green .rating:hover .rating-star:hover ~ .rating-star:after {
-  color: #6CDB9B;
+  color: #108A8A;
 }
 .formoid-solid-light-green .rating-input:checked ~ .rating-star:after {
-  color: #2ECC71;
+  color: #108A8A;
 }
 
 
@@ -929,7 +922,7 @@ Not advised to edit stuff below this line
 .formoid-solid-light-green input[type=file]:hover,
 .formoid-solid-light-green textarea:hover,
 .formoid-solid-light-green select:hover {
-  border-color: #6CDB9B;
+  border-color: #727575;
 }
 .formoid-solid-light-green input[type=text]:focus,
 .formoid-solid-light-green input[type=tel]:focus,
@@ -941,7 +934,7 @@ Not advised to edit stuff below this line
 .formoid-solid-light-green input[type=file]:focus,
 .formoid-solid-light-green textarea:focus,
 .formoid-solid-light-green select:focus{
-  border-color: #2ECC71;
+  border-color: #108A8A;
 }
 
 
@@ -954,7 +947,7 @@ Not advised to edit stuff below this line
 .formoid-solid-light-green input[type=file]:focus ~ .icon-place:before,
 .formoid-solid-light-green .button:focus ~ .icon-place:before,
 .formoid-solid-light-green .file_text:focus ~ .icon-place:before {
-  color: #2ECC71;
+  color: #108A8A;
 }
 
 
@@ -966,12 +959,12 @@ Not advised to edit stuff below this line
 .formoid-solid-light-green .dropdown-menu li.selected > a.highlighted,
 .formoid-solid-light-green .dropdown-inverse li.active > a,
 .formoid-solid-light-green .dropdown-inverse li.selected > a {
-  background-color: #2ECC71;
+  background-color: #108A8A;
 }
 .formoid-solid-light-green .btn.btn-primary:hover,
 .formoid-solid-light-green .btn.btn-primary:focus,
 .formoid-solid-light-green .btn-group:focus .btn.btn-primary.dropdown-toggle {
-  border-color: #6CDB9B;
+  border-color: #727575;
 }
 .formoid-solid-light-green .btn.btn-primary:active,
 .formoid-solid-light-green .btn-group.open .btn.btn-primary.dropdown-toggle,
@@ -984,13 +977,13 @@ Not advised to edit stuff below this line
 .formoid-solid-light-green .dropdown-menu li.selected > a:focus,
 .formoid-solid-light-green .dropdown-menu li.active > a.highlighted:focus,
 .formoid-solid-light-green .dropdown-menu li.selected > a.highlighted:focus {
-  border-color: #2ECC71;
+  border-color: #108A8A;
 }
 .formoid-solid-light-green .dropdown-arrow {
-  border-bottom: 8px solid #2ECC71;
+  border-bottom: 8px solid #108A8A;
 }
 .formoid-solid-light-green .dropdown-menu {
-  border: 2px solid #2ECC71;
+  border: 2px solid #108A8A;
 }
 
 
@@ -998,10 +991,10 @@ Not advised to edit stuff below this line
 
 /* datepicker */
 .datepicker {
-  border: 2px solid #2ECC71;
+  border: 2px solid #108A8A;
 }
 .datepicker:before {
-  border-bottom: 7px solid #2ECC71;
+  border-bottom: 7px solid #108A8A;
 }
 .datepicker td.active,
 .datepicker td.active:hover,
@@ -1029,7 +1022,7 @@ Not advised to edit stuff below this line
 .datepicker td span.active[disabled]{
   color: #ffffff;
   background-image: none;
-  background-color: #2ECC71;
+  background-color: #108A8A;
 }
 
 /* .formoid-solid-light-green color scheme begin end *//* 

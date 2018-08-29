@@ -1,6 +1,6 @@
 /*
-Random path and shape generator, flattener test base: http://jsfiddle.net/xqq5w/embedded/result/
-Basic usage example: http://jsfiddle.net/Nv78L/3/embedded/result/
+Random path and shape generator, flattener test base: https://jsfiddle.net/fjm9423q/embedded/result/
+Basic usage example: https://jsfiddle.net/nrjvmqur/embedded/result/
 
 Basic usage: flatten(document.getElementById('svg'));
 
@@ -353,73 +353,94 @@ SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformTo
     case 'polygon':
       d = 'M' + oldElem.getAttribute('points') + 'Z';
       break;
+
+    // DEBUG
+    // Updated to work with Illustrator rectangle primitve -ALEXA
     case 'rect':
-      var rx = +oldElem.getAttribute('rx'),
-        ry = +oldElem.getAttribute('ry'),
-        b = oldElem.getBBox(),
-        x = b.x,
-        y = b.y,
-        w = b.width,
-        h = b.height;
+        var x = +oldElem.getAttribute('x'), 
+            y = +oldElem.getAttribute('y'), 
+            w = +oldElem.getAttribute('width'), 
+            h = +oldElem.getAttribute('height'); 
 
-      // Validity checks from http://www.w3.org/TR/SVG/shapes.html#RectElement:
-      // If neither ‘rx’ nor ‘ry’ are properly specified, then set both rx and ry to 0. (This will result in square corners.)
-      if (!valid(rx) && !valid(ry)) rx = ry = 0;
-      // Otherwise, if a properly specified value is provided for ‘rx’, but not for ‘ry’, then set both rx and ry to the value of ‘rx’.
-      else if (valid(rx) && !valid(ry)) ry = rx;
-      // Otherwise, if a properly specified value is provided for ‘ry’, but not for ‘rx’, then set both rx and ry to the value of ‘ry’.
-      else if (valid(ry) && !valid(rx)) rx = ry;
-      else
-      {
-        // If rx is greater than half of ‘width’, then set rx to half of ‘width’.
-        if (rx > w / 2) rx = w / 2;
-        // If ry is greater than half of ‘height’, then set ry to half of ‘height’.
-        if (ry > h / 2) ry = h / 2;
-      }
+        d += convertToString([
+              ['M', x, y],
+              ['L', x + w, y],
+              ['L', x + w, y + h],
+              ['L', x, y + h],
+              ['L', x, y],
+              ['Z']
+             ]);
+    break;
 
-      if (!rx && !ry)
-      {
-        d += convertToString([
-      ['M', x, y],
-      ['L', x + w, y],
-      ['L', x + w, y + h],
-      ['L', x, y + h],
-      ['L', x, y],
-      ['Z']
-     ]);
-      }
-      else if (rectAsArgs)
-      {
-        d += convertToString([
-      ['M', x + rx, y],
-      ['H', x + w - rx],
-      ['A', rx, ry, 0, 0, 1, x + w, y + ry],
-      ['V', y + h - ry],
-      ['A', rx, ry, 0, 0, 1, x + w - rx, y + h],
-      ['H', x + rx],
-      ['A', rx, ry, 0, 0, 1, x, y + h - ry],
-      ['V', y + ry],
-      ['A', rx, ry, 0, 0, 1, x + rx, y]
-      ]);
-      }
-      else
-      {
-        var num = 2.19;
-        if (!ry) ry = rx
-        d += convertToString([
-    ['M', x, y + ry],
-    ['C', x, y + ry / num, x + rx / num, y, x + rx, y],
-    ['L', x + w - rx, y],
-    ['C', x + w - rx / num, y, x + w, y + ry / num, x + w, y + ry],
-    ['L', x + w, y + h - ry],
-    ['C', x + w, y + h - ry / num, x + w - rx / num, y + h, x + w - rx, y + h],
-    ['L', x + rx, y + h],
-    ['C', x + rx / num, y + h, x, y + h - ry / num, x, y + h - ry],
-    ['L', x, y + ry],
-    ['Z']
-     ]);
-      }
-      break;
+    // Original File
+    // case 'rect':
+    //   var rx = +oldElem.getAttribute('rx'),
+    //     ry = +oldElem.getAttribute('ry'),
+    //     b = oldElem.getBBox(),
+    //     x = b.x,
+    //     y = b.y,
+    //     w = b.width,
+    //     h = b.height;
+
+    //   // Validity checks from http://www.w3.org/TR/SVG/shapes.html#RectElement:
+    //   // If neither ‘rx’ nor ‘ry’ are properly specified, then set both rx and ry to 0. (This will result in square corners.)
+    //   if (!valid(rx) && !valid(ry)) rx = ry = 0.1;
+    //   // Otherwise, if a properly specified value is provided for ‘rx’, but not for ‘ry’, then set both rx and ry to the value of ‘rx’.
+    //   else if (valid(rx) && !valid(ry)) ry = rx;
+    //   // Otherwise, if a properly specified value is provided for ‘ry’, but not for ‘rx’, then set both rx and ry to the value of ‘ry’.
+    //   else if (valid(ry) && !valid(rx)) rx = ry;
+    //   else
+    //   {
+    //     // If rx is greater than half of ‘width’, then set rx to half of ‘width’.
+    //     if (rx > w / 2) rx = w / 2;
+    //     // If ry is greater than half of ‘height’, then set ry to half of ‘height’.
+    //     if (ry > h / 2) ry = h / 2;
+    //   }
+
+    //   if (!rx && !ry)
+    //   {
+    //     d += convertToString([
+    //           ['M', x, y],
+    //           ['L', x + w, y],
+    //           ['L', x + w, y + h],
+    //           ['L', x, y + h],
+    //           ['L', x, y],
+    //           ['Z']
+    //          ]);
+    //   }
+    //   else if (rectAsArgs)
+    //   {
+    //     d += convertToString([
+    //           ['M', x + rx, y],
+    //           ['H', x + w - rx],
+    //           ['A', rx, ry, 0, 0, 1, x + w, y + ry],
+    //           ['V', y + h - ry],
+    //           ['A', rx, ry, 0, 0, 1, x + w - rx, y + h],
+    //           ['H', x + rx],
+    //           ['A', rx, ry, 0, 0, 1, x, y + h - ry],
+    //           ['V', y + ry],
+    //           ['A', rx, ry, 0, 0, 1, x + rx, y]
+    //           ]);
+    //   }
+    //   else
+    //   {
+    //     var num = 2.19;
+    //     if (!ry) ry = rx
+    //     d += convertToString([
+    //           ['M', x, y + ry],
+    //           ['C', x, y + ry / num, x + rx / num, y, x + rx, y],
+    //           ['L', x + w - rx, y],
+    //           ['C', x + w - rx / num, y, x + w, y + ry / num, x + w, y + ry],
+    //           ['L', x + w, y + h - ry],
+    //           ['C', x + w, y + h - ry / num, x + w - rx / num, y + h, x + w - rx, y + h],
+    //           ['L', x + rx, y + h],
+    //           ['C', x + rx / num, y + h, x, y + h - ry / num, x, y + h - ry],
+    //           ['L', x, y + ry],
+    //           ['Z']
+    //            ]);
+    //   }
+    //   break;
+
     default:
       //path.parentNode.removeChild(path);
       break;

@@ -24,12 +24,8 @@ function renderObject(pathWithDepth, scene, group, options) {
     // // Create an extrusion from the SVG path shapes
     var svgMesh = getExtrudedSvgObject( pathWithDepth, options, group );
 
-    console.log("returned successful mesh");
-
     // // Add the merged geometry to the scene
     group.add( svgMesh );
-
-    console.log("after show");
 
     // Flip image to keep original svg orientation
     var invertTransform = new THREE.Matrix4().makeScale( -1, 1, 1 );

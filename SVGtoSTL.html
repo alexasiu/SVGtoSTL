@@ -2,7 +2,7 @@
   <head>
     <title>Convert SVG to STL</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <script src="js/external/jquery-2.1.4.min.js"></script>
+    <script src="js/external/jquery-3.3.1.min.js"></script>
     <!-- WebGL Geometry and rendering library -->
     <script src="js/external/three.js"></script>
     <script src="js/external/OrbitControls.js"></script>
@@ -12,10 +12,6 @@
     <script src="js/external/STLExporter.js"></script>
     <!-- "Flatten" an SVG document by applying all transforms to the paths -->
     <script src="js/external/flatten.js"></script>
-
-    <!-- Constructive Solid Geometry -->
-    <!-- <script src="js/external/ThreeCSG.js"></script> -->
-
     <!-- In-memory file reads and writes -->
     <script src="js/external/FileSaver.js"></script>
     <!-- Javascript color-picker -->
@@ -24,20 +20,23 @@
     <!-- Code that pulls all of the above together -->
     <script src="js/SVGtoSTL.js"></script>
 
+    <!-- GUI -->
+    <script src="js/external/dat.gui.min.js"></script>
+
     <!-- Make it pretty -->
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
   </head>
   <body>
     <div id="header">
       <div class="uploadDiv">
         <div class="fileUpload button">
-          <span><img src="img/image.svg"/> Upload SVG</span>
+          <span>Upload SVG</span>
           <input type="file" class="upload" name="files[]" accept="image/svg+xml"/>
         </div>
       </div>
       <div class="downloadDiv">
         <div class="download button">
-          <img src="img/install.svg"/> Download STL
+          <span>Download STL<span>
         </div>
       </div>
     </div>
@@ -47,6 +46,7 @@
       </div>
       <div id="optionsDiv" class="optionsDiv">
         <link rel="stylesheet" href="css/form-green.css" type="text/css" />
+
         <!-- Start Formoid form-->
         <form class="formoid-solid-light-green" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post">
 
@@ -191,11 +191,27 @@
       readerString.onload = (function(uploadedFile) {
         return function(e) {
           console.log("Parsing SVG paths...");
-          // Get the paths out of the SVG
-          var svgDoc = $.parseXML(e.target.result);
 
+          console.log("before parsing: ");
+
+          var resultString = e.target.result;
+
+          // Get the paths out of the SVG
+          // var svgDoc = $.parseXML(resultString);
+
+          // Parse the svg string into xml document
+          var parser = new DOMParser();
+          var svgDoc = parser.parseFromString(resultString, "text/xml");//"image/svg+xml");
+          
           // "Flatten" the SVG by applying all transforms to shapes and paths
           flatten(svgDoc.children[0]);
+
+          // Check if there are any rectangle primitves. 
+          // Known issues: can't handle illustrator rectangle shape primitive.
+          // if ( ($("rect", svgDoc).get()).length >= 1 ) {
+          //   alert("Error! Please convert primitive rectangle shape to compound paths. In Illustrator use CTRL/CMD+8.");
+          //   return;
+          // }
 
           // Get all layers in the SVG
           var svgLayers = $("g", svgDoc).get();
