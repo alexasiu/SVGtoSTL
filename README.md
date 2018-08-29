@@ -1,11 +1,9 @@
 # SVG to STL Converter
-Created to enable the 3D printing of plates for a [printing press] from a 2D vector graphic, this tool runs entirely in the local browser. As the name implies, it takes a [scalable vector graphics] \(SVG\) file as input, and produces an ASCII [stereo-lithography] \(STL\) file as output.
 
 ### Demo
 You can try the tool [hosted directly from github].
 
 ### Screenshot
- ![Screenshot](https://github.com/rcalme/svg-to-stl/blob/master/screenshot.png)
 
 ### Known problems
 
