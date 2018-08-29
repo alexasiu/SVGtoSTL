@@ -74,10 +74,6 @@
                 <input type="checkbox" name="checkbox1[]" id="showEdges" value="Show Edges" checked/>
                 <span>Show Edges</span>
               </label>
-              <label>
-                <input type="checkbox" name="checkbox1[]" id="showNormals" value="Show Normals"/>
-                <span>Show Normals</span>
-              </label>
             </div>
             <span class="clearfix"></span>
           </div>
@@ -163,7 +159,6 @@
             svgWindingIsCW: $("input#reverseWO").prop("checked"),
             wantWireFrame: $("input#showWireFrame").prop("checked"),
             wantEdges: $("input#showEdges").prop("checked"),
-            wantNormals: $("input#showNormals").prop("checked"),
             objectColor: $("input#colorPicker").spectrum("get").toHexString()
         };
     }
@@ -195,9 +190,6 @@
           console.log("before parsing: ");
 
           var resultString = e.target.result;
-
-          // Get the paths out of the SVG
-          // var svgDoc = $.parseXML(resultString);
 
           // Parse the svg string into xml document
           var parser = new DOMParser();

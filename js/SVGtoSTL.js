@@ -39,12 +39,12 @@ function renderObject(pathWithDepth, scene, group, options) {
         line.applyMatrix( invertTransform );
         group.add( line );
     }
-    // Show normals?
-    if(options.wantNormals) {
-        var normals = new THREE.FaceNormalsHelper( svgMesh, 2, 0x000000, 1 );
-        wireframe.applyMatrix( invertTransform );
-        normals.add( normals );
-    }
+    // // Show normals?
+    // if(options.wantNormals) {
+    //     var normals = new THREE.FaceNormalsHelper( svgMesh, 2, 0x000000, 1 );
+    //     wireframe.applyMatrix( invertTransform );
+    //     normals.add( normals );
+    // }
     // Show hard edges?
     if(options.wantEdges) {
         var geometry = new THREE.EdgesGeometry( svgMesh.geometry );
