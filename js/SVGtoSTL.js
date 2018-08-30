@@ -63,7 +63,7 @@ function getExtrudedSvgObject( pathWithDepth, options, group ) {
     var objUnion;
 
     var singleGeometry = new THREE.Geometry();
-    console.log(pathWithDepth.length);
+    
     for (var i = 0; i < pathWithDepth.length; i++) {
         // Turn each SVG path into a three.js shape
         var path = $d3g.transformSVGPath( pathWithDepth[i].path );

@@ -25,46 +25,11 @@
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link rel="stylesheet" href="css/form-green.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/dat.gui.css"/>
 
   </head>
 
   <body>
-
-    <script type="text/javascript">
-      var GUIText = {
-        gui_uploadSVG: function() {},
-        gui_downloadSTL: function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); },
-        ReverseWinding: true,
-        ShowWireFrame: false,
-        ShowEdges: false,
-        Color: "#108A8A"
-      };
-
-      var gui = new dat.gui.GUI();
-      var gui_upload = gui.add(GUIText, 'gui_uploadSVG').name('Upload SVG');
-      gui.add(GUIText, 'gui_downloadSTL').name('Download STL');
-      var gui_reverse = gui.add(GUIText, 'ReverseWinding').name('Reverse winding');
-      var gui_wireframe = gui.add(GUIText, 'ShowWireFrame').name('Show wireframe');
-      var gui_edges = gui.add(GUIText, 'ShowEdges').name('Show edges');
-      gui.addColor(GUIText, 'Color');
-
-      gui_upload.onChange( function(value){
-          $('#gui_pload_svg').click();
-          console.log("click upload");
-      });
-
-      gui_reverse.onChange( function(value){
-          console.log("click download");
-      });
-
-      gui_wireframe.onChange( function(value){
-          console.log("click download");
-      });
-
-
-    </script>
 
     <div id="hidden">
       <input id="gui_pload_svg" type="file" class="upload" name="files[]" accept="image/svg+xml"/>
@@ -76,8 +41,6 @@
         <img id="uploadedSVG" src="#"/>
       </div>
 
-      <!-- FORM -->
-
       <!-- STL Canvas -->
       <div id="stlCanvas" class="stlCanvas">
       </div>
@@ -85,23 +48,44 @@
     </div> <!-- End Content -->
 
   <script>
+
+    var GUIText = {
+      gui_uploadSVG: function() {},
+      gui_downloadSTL: function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); },
+      ReverseWinding: true,
+      ShowWireFrame: false,
+      ShowEdges: false,
+      Color: "#108A8A"
+    };
+
+    var gui = new dat.gui.GUI();
+    var gui_upload = gui.add(GUIText, 'gui_uploadSVG').name('Upload SVG');
+    gui.add(GUIText, 'gui_downloadSTL').name('Download STL');
+    var gui_reverse = gui.add(GUIText, 'ReverseWinding').name('Reverse winding');
+    var gui_wireframe = gui.add(GUIText, 'ShowWireFrame').name('Show wireframe');
+    var gui_edges = gui.add(GUIText, 'ShowEdges').name('Show edges');
+    var gui_color = gui.addColor(GUIText, 'Color');
+
     $(document).ready( function () {
+
+        console.log(pathWithDepth);
 
         // Handle file upload
         var input = document.querySelector("#gui_pload_svg");
         input.style.visibility = 'hidden';
         input.addEventListener('change', handleFileSelect);
 
-        // // Initialize the color picker
-        // $("#colorPicker").spectrum({ color: "#5d9dea" });
-        // // Handler for form submit
-        // $("form").submit(function(e){
-        //     e.preventDefault();
-        //     // Numeric validations would go here
-        //     clearGroup(group);
-        //     renderObject(pathWithDepth, scene, group, getFormSelections());
-        //     return true;
-        // }); 
+        gui_upload.onChange( function(value){
+          $('#gui_pload_svg').click();
+        });
+
+        gui_reverse.onChange( function() { resetView(); });
+
+        gui_wireframe.onChange( function() { resetView(); });
+
+        gui_edges.onChange( function() { resetView(); });
+
+        gui_color.onChange( function() { resetView(); });        
 
     });
 
@@ -112,6 +96,11 @@
         } catch ( e ) {
             return false;
         }
+    }
+
+    function resetView() {
+      clearGroup(group);
+      renderObject(pathWithDepth, scene, group, getFormSelections());
     }
 
     // Check for FileReader API support
@@ -221,7 +210,7 @@
               pathWithDepth[j] = tempPath;
             }
           }
-          console.log(pathWithDepth);
+          // console.log(pathWithDepth);
 
           // Store the file name in a global
           fileName = uploadedFile.name;
