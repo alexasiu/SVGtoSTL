@@ -1,4 +1,5 @@
 <html>
+
   <head>
     <title>Convert SVG to STL</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -20,26 +21,60 @@
     <!-- Code that pulls all of the above together -->
     <script src="js/SVGtoSTL.js"></script>
 
-    <!-- Make it pretty -->
-  <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script type="text/javascript" src="js/external/dat.gui.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" href="css/form-green.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/dat.gui.css"/>
+
   </head>
+
   <body>
 
+    <script type="text/javascript">
+      var GUIText = {
+        gui_uploadSVG: function() {},
+        gui_downloadSTL: function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); },
+        ReverseWinding: true,
+        ShowWireFrame: false,
+        ShowEdges: false,
+        Color: "#108A8A"
+      };
+
+      var gui = new dat.gui.GUI();
+      var gui_upload = gui.add(GUIText, 'gui_uploadSVG').name('Upload SVG');
+      var gui_download = gui.add(GUIText, 'gui_downloadSTL').name('Download STL');
+      gui.add(GUIText, 'ReverseWinding').name('Reverse winding');
+      gui.add(GUIText, 'ShowWireFrame').name('Show wireframe');
+      gui.add(GUIText, 'ShowEdges').name('Show edges');
+      gui.addColor(GUIText, 'Color');
+
+      gui_upload.onChange( function(value){
+          $('#gui_pload_svg').click();
+          console.log("click upload");
+      });
+
+      gui_download.onChange( function(value){
+          console.log("click download");
+      });
+    </script>
+
     <!-- Main Menu -->
-    <div id="header">
+    <div id="header2">
 
-      <div class="uploadDiv">
-        <div class="fileUpload button">
-          <span><img src="img/image.svg"/> Upload SVG</span>
-          <input type="file" class="upload" name="files[]" accept="image/svg+xml"/>
+      <!-- <div class="uploadDiv"> -->
+        <!-- <div class="fileUpload button"> -->
+        <div id="hidden">
+          <input id="gui_pload_svg" type="file" class="upload" name="files[]" accept="image/svg+xml"/>
         </div>
-      </div>
+      <!-- </div> -->
 
-      <div class="downloadDiv">
+<!--       <div class="downloadDiv">
         <div class="download button">
           <img src="img/install.svg"/> Download STL
         </div>
-      </div>
+      </div> -->
       
     </div>
 
@@ -51,7 +86,6 @@
 
       <!-- Options Menu -->
       <div id="optionsDiv" class="optionsDiv">
-        <link rel="stylesheet" href="css/form-green.css" type="text/css" />
         <!-- Start Formoid form-->
         <form class="formoid-solid-light-green" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post">
 
@@ -95,6 +129,7 @@
         </form>
         <script type="text/javascript" src="js/form-green.js"></script>
         <!-- Stop Formoid form-->
+
       </div>
 
       <!-- STL Canvas -->
@@ -107,7 +142,12 @@
   <script>
     $(document).ready( function () {
         // When asked to upload an SVG file, use this handler
-        $(".upload").change(handleFileSelect);//on("change", handleFileSelect);
+        // $(".upload").change(handleFileSelect);//on("change", handleFileSelect);
+        
+        var input = document.querySelector("#gui_pload_svg");
+        input.style.visibility = 'hidden';
+        input.addEventListener('change', handleFileSelect);
+
         // Initialize the color picker
         $("#colorPicker").spectrum({ color: "#5d9dea" });
         // Handler for form submit
@@ -121,7 +161,8 @@
 
         // When asked to export 3D scene to STL file, do so,
         // using the uploaded filename with a changed extension
-        $(".download").on("click", function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); });
+        // $(".download").on("click", function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); });
+        // $(".download").change(function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); });
     });
 
     // Check for webgl support
@@ -163,6 +204,7 @@
 
     // Pull options from the form
     function getFormSelections() {
+        console.log(GUIText.Color);
         return {
             svgWindingIsCW: $("input#reverseWO").prop("checked"),
             wantWireFrame: $("input#showWireFrame").prop("checked"),
@@ -323,5 +365,7 @@
         renderer.render( scene, camera );
     }
   </script>
+
   </body>
+
 </html>

@@ -3,7 +3,7 @@ body {
     font-family: raleway, sans-serif;
 }
 
-#upload_svg {
+#hidden {
     position: absolute;
     left: -9999px;
 }
@@ -95,10 +95,11 @@ div.notsupported .small {
 }
 
 /* Hide the system-provided file selection, replace it with a custom button */
-.fileUpload {
+/*.fileUpload {
     position: relative;
     overflow: hidden;
 }
+
 .fileUpload input.upload {
     position: absolute;
     top: 0;
@@ -109,7 +110,7 @@ div.notsupported .small {
     cursor: pointer;
     opacity: 0;
     filter: alpha(opacity=0);
-}
+}*/
 
 .download {
     cursor: pointer;
