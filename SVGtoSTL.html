@@ -20,33 +20,38 @@
     <!-- Code that pulls all of the above together -->
     <script src="js/SVGtoSTL.js"></script>
 
-    <!-- GUI -->
-    <script src="js/external/dat.gui.min.js"></script>
-
     <!-- Make it pretty -->
   <link rel="stylesheet" type="text/css" href="css/style.css"/>
   </head>
   <body>
+
+    <!-- Main Menu -->
     <div id="header">
+
       <div class="uploadDiv">
         <div class="fileUpload button">
-          <span>Upload SVG</span>
+          <span><img src="img/image.svg"/> Upload SVG</span>
           <input type="file" class="upload" name="files[]" accept="image/svg+xml"/>
         </div>
       </div>
+
       <div class="downloadDiv">
         <div class="download button">
-          <span>Download STL<span>
+          <img src="img/install.svg"/> Download STL
         </div>
       </div>
+      
     </div>
+
+    <!-- SVG Canvas -->
     <div id="content">
       <div id="svgCanvas" class="svgCanvas">
         <img id="uploadedSVG" src="#"/>
       </div>
+
+      <!-- Options Menu -->
       <div id="optionsDiv" class="optionsDiv">
         <link rel="stylesheet" href="css/form-green.css" type="text/css" />
-
         <!-- Start Formoid form-->
         <form class="formoid-solid-light-green" style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post">
 
@@ -91,14 +96,18 @@
         <script type="text/javascript" src="js/form-green.js"></script>
         <!-- Stop Formoid form-->
       </div>
+
+      <!-- STL Canvas -->
       <div id="stlCanvas" class="stlCanvas">
       </div>
-    </div>
+    
+    </div> <!-- End Content -->
+
   <!-- In-memory file read and parsing -->
   <script>
     $(document).ready( function () {
         // When asked to upload an SVG file, use this handler
-        $(".upload").on("change", handleFileSelect);
+        $(".upload").change(handleFileSelect);//on("change", handleFileSelect);
         // Initialize the color picker
         $("#colorPicker").spectrum({ color: "#5d9dea" });
         // Handler for form submit
@@ -145,7 +154,7 @@
     }
             
     // Remember the file name of the uploaded SVG
-    // we'll re-use this with a ".stl" extension at download time
+    // will re-use this with a ".stl" extension at download time
     var fileName;
 
     // keep only 'path' tags and associated depth
@@ -155,7 +164,6 @@
     // Pull options from the form
     function getFormSelections() {
         return {
-            wantInvertedType: $("input#invertType").prop("checked"),
             svgWindingIsCW: $("input#reverseWO").prop("checked"),
             wantWireFrame: $("input#showWireFrame").prop("checked"),
             wantEdges: $("input#showEdges").prop("checked"),
@@ -164,6 +172,7 @@
     }
 
     function handleFileSelect(evt) {
+
       var file = evt.target.files[0]; // FileList object
 
       // Only process image files.
@@ -187,23 +196,12 @@
         return function(e) {
           console.log("Parsing SVG paths...");
 
-          console.log("before parsing: ");
-
-          var resultString = e.target.result;
-
           // Parse the svg string into xml document
           var parser = new DOMParser();
-          var svgDoc = parser.parseFromString(resultString, "text/xml");//"image/svg+xml");
+          var svgDoc = parser.parseFromString(e.target.result, "text/xml");//"image/svg+xml");
           
           // "Flatten" the SVG by applying all transforms to shapes and paths
           flatten(svgDoc.children[0]);
-
-          // Check if there are any rectangle primitves. 
-          // Known issues: can't handle illustrator rectangle shape primitive.
-          // if ( ($("rect", svgDoc).get()).length >= 1 ) {
-          //   alert("Error! Please convert primitive rectangle shape to compound paths. In Illustrator use CTRL/CMD+8.");
-          //   return;
-          // }
 
           // Get all layers in the SVG
           var svgLayers = $("g", svgDoc).get();

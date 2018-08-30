@@ -45,6 +45,7 @@ function renderObject(pathWithDepth, scene, group, options) {
     //     wireframe.applyMatrix( invertTransform );
     //     normals.add( normals );
     // }
+    
     // Show hard edges?
     if(options.wantEdges) {
         var geometry = new THREE.EdgesGeometry( svgMesh.geometry );
