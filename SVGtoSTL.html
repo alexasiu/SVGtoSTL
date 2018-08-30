@@ -51,7 +51,13 @@
 
     var GUIText = {
       gui_uploadSVG: function() {},
-      gui_downloadSTL: function(){ saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); },
+      gui_downloadSTL: function() { 
+        if (pathWithDepth.length != 0) {
+          saveSTL(scene, fileName.replace(/\.[^\.]*$/, "")); 
+        } else {
+          alert("Error! No STL to download!");
+        }
+      },
       ReverseWinding: true,
       ShowWireFrame: false,
       ShowEdges: false,
@@ -67,8 +73,6 @@
     var gui_color = gui.addColor(GUIText, 'Color');
 
     $(document).ready( function () {
-
-        console.log(pathWithDepth);
 
         // Handle file upload
         var input = document.querySelector("#gui_pload_svg");
