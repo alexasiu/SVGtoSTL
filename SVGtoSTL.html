@@ -23,6 +23,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/dat.gui.css"/>
+    <link rel="stylesheet" type="text/css" href="css/menu-style.css"/>
 
   </head>
 
@@ -46,6 +47,7 @@
 
   <script>
 
+    // Begin dat.gui definitions
     var GUIText = {
       gui_uploadSVG: function() {},
       gui_downloadSTL: function() { 
@@ -61,6 +63,7 @@
       Color: "#108A8A"
     };
 
+    // Define gui variables
     var gui = new dat.gui.GUI();
     var gui_upload = gui.add(GUIText, 'gui_uploadSVG').name('Upload SVG');
     gui.add(GUIText, 'gui_downloadSTL').name('Download STL');
@@ -76,19 +79,15 @@
         input.style.visibility = 'hidden';
         input.addEventListener('change', handleFileSelect);
 
-        gui_upload.onChange( function(value){
-          $('#gui_pload_svg').click();
-        });
-
+        // Add listeners to the different gui variables
+        gui_upload.onChange( function(value){ $('#gui_pload_svg').click(); });
         gui_reverse.onChange( function() { resetView(); });
-
         gui_wireframe.onChange( function() { resetView(); });
-
         gui_edges.onChange( function() { resetView(); });
-
         gui_color.onChange( function() { resetView(); });        
 
     });
+    // End dat.gui definitions
 
     // Check for webgl support
     function webgl() {
@@ -99,9 +98,12 @@
         }
     }
 
-    function resetView() {
-      clearGroup(group);
-      renderObject(pathWithDepth, scene, group, getFormSelections());
+    // Returns boolean in case the browser is Internet Explorer
+    function isIE() {
+      ua = navigator.userAgent;
+      /* MSIE used to detect old browsers and Trident used to newer ones*/
+      var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+      return is_ie; 
     }
 
     // Check for FileReader API support
@@ -109,19 +111,11 @@
         return window.File && window.FileReader && window.FileList && window.Blob;
     }
 
-    // Message to be built if webgl/fileapi support isn't present
-    function notSupportedMessage(element) {
-        $(element).empty();    // Clear the element
-        $(element).append($("<div class='container'><div class='notsupported'></div></div>"));
-        $(".notsupported").append($("<p class='big'>NOPE.</p>"));
-        $(".notsupported").append($("<p class='small'>Your browser doesn't seem to support WebGL and/or the FileReader API.</p>"));
-        $(".notsupported").append($("<p class='small'>Try a recent browser like <a href='https://www.google.com/chrome/browser/desktop' target='_blank'>Chrome</a> or <a href='https://www.mozilla.org/en-US/firefox' target='_blank'>Firefox</a>.</p>"));
-    }
-
     // First check if support is present for the functions we'll use
-    if(!webgl() || !fileapi()) {
-        // Print a message that the browser doesn't support what we need
-        notSupportedMessage($("body")); 
+    if( !webgl() || !fileapi() ) {
+        alert("Error! Your browser doesn't seem to support WebGL and/or the FileReader API. ");
+    } else if ( isIE() ) {
+      alert("Error! This program has only be tested with Chrome and Safari.");
     }
             
     // Remember the file name of the uploaded SVG
@@ -131,6 +125,12 @@
     // keep only 'path' tags and associated depth
     var pathWithDepth = []; // pathWithDepth is an array of object where each object
                             // contains a path and associated depth
+
+    // Reset SVG rendering
+    function resetView() {
+      clearGroup(group);
+      renderObject(pathWithDepth, scene, group, getFormSelections());
+    }
 
     // Pull options from the form
     function getFormSelections() {

@@ -39,12 +39,6 @@ function renderObject(pathWithDepth, scene, group, options) {
         line.applyMatrix( invertTransform );
         group.add( line );
     }
-    // // Show normals?
-    // if(options.wantNormals) {
-    //     var normals = new THREE.FaceNormalsHelper( svgMesh, 2, 0x000000, 1 );
-    //     wireframe.applyMatrix( invertTransform );
-    //     normals.add( normals );
-    // }
     
     // Show hard edges?
     if(options.wantEdges) {
@@ -63,7 +57,7 @@ function getExtrudedSvgObject( pathWithDepth, options, group ) {
     var objUnion;
 
     var singleGeometry = new THREE.Geometry();
-    
+
     for (var i = 0; i < pathWithDepth.length; i++) {
         // Turn each SVG path into a three.js shape
         var path = $d3g.transformSVGPath( pathWithDepth[i].path );

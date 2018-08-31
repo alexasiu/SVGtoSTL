@@ -7,11 +7,13 @@ The SVG should be composed of layers and each layer name can have any name. To s
 
 **Default units are mm.**
 
+You can find a sample svg in [samples/sampleSVG.svg](samples/sampleSVG.svg).
+
 ### Demo
 You can try the tool [hosted directly from github].
 
 ### Screenshot
-
+![](img/screenshot.PNG)
 
 ### Known problems
 * Can only support shape extrusion, no cuts.
