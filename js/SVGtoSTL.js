@@ -90,8 +90,7 @@ function getExtrudedSvgObject( pathWithDepth, options, group ) {
         0 );                    
     objUnion.geometry.applyMatrix( translateTransform );
 
-    // Rotate 180 deg
-    // Why is this required? Different coordinate systems for SVG and three.js?
+    // Rotate 180 deg. Different coordinate systems for SVG and three.js?
     var rotateTransform = new THREE.Matrix4().makeRotationZ( Math.PI );
     objUnion.geometry.applyMatrix( rotateTransform );
 
