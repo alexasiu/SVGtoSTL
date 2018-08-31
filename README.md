@@ -10,7 +10,7 @@ The SVG should be composed of layers and each layer name can have any name. To s
 You can find a sample svg in [samples/sampleSVG.svg](samples/sampleSVG.svg).
 
 ### Demo
-You can try the tool <a href="<http://alexasiu.com/SVGtoSTL/SVGtoSTL.html>" target="_blank">hosted directly from github</a>.
+You can try the tool <a href="http://alexasiu.com/SVGtoSTL/SVGtoSTL.html" target="_blank">hosted directly from github</a>.
 
 ### Screenshot
 ![](img/screenshot.PNG)
